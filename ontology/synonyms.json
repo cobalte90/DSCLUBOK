@@ -1,0 +1,6 @@
+{
+  "электроэкстракция": ["electrowinning", "ew"],
+  "ПВП": ["печь взвешенной плавки", "flash smelting furnace", "fluidized bed furnace"],
+  "МПГ": ["pgm", "platinum group metals"],
+  "шахтные воды": ["mine water", "miw"]
+}

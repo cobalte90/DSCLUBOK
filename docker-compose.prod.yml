@@ -1,0 +1,101 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: science-knot-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      SCIENCE_KNOT_MODE: demo
+      SCIENCE_KNOT_DB_URL: sqlite:////app/data/runtime/science_knot.db
+      SCIENCE_KNOT_STORAGE_DIR: /app/data/runtime
+      SCIENCE_KNOT_CORPUS_DIR: /app/corpus
+      SCIENCE_KNOT_DEMO_MANIFEST: /app/data/demo/demo_manifest.json
+      SCIENCE_KNOT_CURATED_MANIFEST: /app/data/curated/real_curated_manifest.json
+      EXTERNAL_SOURCES_ENABLED: ${EXTERNAL_SOURCES_ENABLED:-true}
+      OPENALEX_ENABLED: ${OPENALEX_ENABLED:-true}
+      CROSSREF_ENABLED: ${CROSSREF_ENABLED:-true}
+      GOOGLE_PATENTS_ENABLED: ${GOOGLE_PATENTS_ENABLED:-true}
+      SCIENCE_KNOT_NEO4J_HTTP_URL: http://neo4j:7474
+      SCIENCE_KNOT_NEO4J_USER: neo4j
+      SCIENCE_KNOT_NEO4J_PASSWORD: ${SCIENCE_KNOT_NEO4J_PASSWORD:-science-knot-demo}
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./data:/app/data
+      - ./corpus_ascii:/app/corpus:ro
+    depends_on:
+      neo4j:
+        condition: service_started
+
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: science-knot-worker
+    restart: unless-stopped
+    command: ["python", "-m", "app.worker"]
+    env_file:
+      - .env
+    environment:
+      SCIENCE_KNOT_MODE: demo
+      SCIENCE_KNOT_DB_URL: sqlite:////app/data/runtime/science_knot.db
+      SCIENCE_KNOT_STORAGE_DIR: /app/data/runtime
+      SCIENCE_KNOT_CORPUS_DIR: /app/corpus
+      SCIENCE_KNOT_DEMO_MANIFEST: /app/data/demo/demo_manifest.json
+      SCIENCE_KNOT_CURATED_MANIFEST: /app/data/curated/real_curated_manifest.json
+      EXTERNAL_SOURCES_ENABLED: ${EXTERNAL_SOURCES_ENABLED:-true}
+      OPENALEX_ENABLED: ${OPENALEX_ENABLED:-true}
+      CROSSREF_ENABLED: ${CROSSREF_ENABLED:-true}
+      GOOGLE_PATENTS_ENABLED: ${GOOGLE_PATENTS_ENABLED:-true}
+      SCIENCE_KNOT_NEO4J_HTTP_URL: http://neo4j:7474
+      SCIENCE_KNOT_NEO4J_USER: neo4j
+      SCIENCE_KNOT_NEO4J_PASSWORD: ${SCIENCE_KNOT_NEO4J_PASSWORD:-science-knot-demo}
+    volumes:
+      - ./data:/app/data
+      - ./corpus_ascii:/app/corpus:ro
+    depends_on:
+      api:
+        condition: service_started
+      neo4j:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        VITE_API_BASE_URL: ""
+    container_name: science-knot-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      api:
+        condition: service_started
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: science-knot-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: science_knot
+      POSTGRES_USER: science
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-science}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  neo4j:
+    image: neo4j:5.26-community
+    container_name: science-knot-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/${SCIENCE_KNOT_NEO4J_PASSWORD:-science-knot-demo}
+    volumes:
+      - neo4jdata:/data
+
+volumes:
+  pgdata:
+  neo4jdata:

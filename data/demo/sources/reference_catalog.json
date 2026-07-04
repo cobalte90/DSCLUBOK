@@ -1,0 +1,16 @@
+{
+  "materials": [
+    {"name": "никель", "aliases": ["nickel", "Ni"], "property": "metal"},
+    {"name": "медь", "aliases": ["copper", "Cu"], "property": "metal"},
+    {"name": "сульфаты", "aliases": ["sulfates"], "property": "anion"}
+  ],
+  "equipment": [
+    {"name": "ванна электроэкстракции", "aliases": ["electrowinning cell"]},
+    {"name": "печь взвешенной плавки", "aliases": ["flash smelting furnace", "ПВП"]}
+  ],
+  "units": [
+    {"name": "мг/л", "normalized": "mg/L"},
+    {"name": "°С", "normalized": "degC"},
+    {"name": "А/м2", "normalized": "A/m2"}
+  ]
+}

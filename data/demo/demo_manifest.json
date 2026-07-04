@@ -1,0 +1,63 @@
+{
+  "sources": [
+    {
+      "name": "Priority Reviews",
+      "source_type": "article_review",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "Источники информации/Обзоры/Электроэкстракция никеля. Влияние состава электролита.docx",
+        "Источники информации/Обзоры/Обзор технических решений в области электролитического производства никеля и меди.docx",
+        "Источники информации/Обзоры/Методы очистки шахтных вод.docx",
+        "Источники информации/Обзоры/Распределение Au, Ag и МПГ между меднымникелевым штейном и шлаком.docx",
+        "Источники информации/Обзоры/Удаление SO2 2018.docx",
+        "Источники информации/Обзоры/ТИ-5-2017. Кучное выщелачивание в условиях холодного климата.pdf"
+      ]
+    },
+    {
+      "name": "Sample Reference Catalog",
+      "source_type": "reference_catalog",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "data/demo/sources/reference_catalog.json"
+      ]
+    },
+    {
+      "name": "Sample Experiment Protocol",
+      "source_type": "experiment_protocol",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "data/demo/sources/experiment_protocol.json"
+      ]
+    },
+    {
+      "name": "Sample Patent Regulation",
+      "source_type": "patent_regulation",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "data/demo/sources/sample_regulation.txt"
+      ]
+    },
+    {
+      "name": "Sample Expert Directory",
+      "source_type": "expert_directory",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "data/demo/sources/expert_directory.json"
+      ]
+    },
+    {
+      "name": "Sample Taxonomy",
+      "source_type": "taxonomy_catalog",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "data/demo/sources/taxonomy_catalog.json"
+      ]
+    }
+  ]
+}

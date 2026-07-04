@@ -1,0 +1,119 @@
+﻿{
+  "name": "real-curated-v1",
+  "description": "Curated deep-ingest subset of real documents for stable hackathon demo scenarios.",
+  "scenarios": [
+    {
+      "id": "mine-water-sulfates",
+      "title": "Очистка шахтных вод",
+      "goal": "Подтвердить engineering answer по шахтным водам, сульфатам и режимам очистки."
+    },
+    {
+      "id": "electrowinning-parameters",
+      "title": "Электроэкстракция и параметры",
+      "goal": "Показать числовые параметры, таблицы и extractable режимы электроэкстракции."
+    },
+    {
+      "id": "nickel-processing",
+      "title": "Переработка никельсодержащего сырья",
+      "goal": "Показать процессы, материалы, альтернативы и параметры извлечения."
+    },
+    {
+      "id": "russia-vs-world",
+      "title": "Россия vs world",
+      "goal": "Сравнить внутренние и зарубежные источники по никелю и переработке."
+    },
+    {
+      "id": "pgm-selectivity",
+      "title": "Селективность и МПГ",
+      "goal": "Показать более узкий металлургический кейс с селективностью и благородными металлами."
+    }
+  ],
+  "sources": [
+    {
+      "name": "Curated Real Articles",
+      "source_type": "article_review",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "Источники информации/Статьи/10 Статья по ХВ МФ-2025-14.docx",
+        "Источники информации/Статьи/20 Применение современных способов контроля процессов для повышения технико-экономических показателей производства.docx",
+        "Источники информации/Статьи/39 ИССЛЕДОВАНИЕ ПЕРСПЕКТИВНЫХ СОСТАВОВ ДЛЯ ОТЛИВКИ МЕДНЫХ АНОДОВ.docx",
+        "Источники информации/Статьи/43 Повышение селективности концентратов МПГ в химико-металлургическом цехе КГМК.docx",
+        "Источники информации/Статьи/48 Поведение силикатной составляющей при переработке Ni к-та -в редакцию Цв.металлы.docx",
+        "Источники информации/Статьи/54 Поведение селена и теллура при электроэкстракции меди.docx",
+        "Источники информации/Статьи/15 Исследования составов продуктов передела медеочистки ОРИД и фильтрации пульпы медеочистки.docx",
+        "Источники информации/Статьи/38 Статья ЦМ_В АО Кольская ГМК получены первые слитки аффинированных металлов.docx"
+      ]
+    },
+    {
+      "name": "Curated Internal Reports",
+      "source_type": "internal_report",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "Источники информации/Доклады/Доклад_Луканина М.А.pdf",
+        "Источники информации/Доклады/Доклад_Новожилова О.С.pdf",
+        "Источники информации/Доклады/Доклад_Румянцев А.Е.pdf",
+        "Источники информации/Доклады/Переработка рудных образований океана - Цымбулов Л.Б. Институт Гипроникель-16-06-2024.pptx"
+      ]
+    },
+    {
+      "name": "Curated Global Benchmarks",
+      "source_type": "article_review",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "Источники информации/Материалы конференций/Nicole_Roocke_Обзор никелевой промышленности Западной Австралии.pdf",
+        "Источники информации/Материалы конференций/Nikhil_Shah_Потенциальные узкие места по Ni ресурсам.pdf",
+        "Источники информации/Материалы конференций/Tony_Keating_Пример общего характера по переработке латеритных руд.pdf",
+        "Источники информации/Материалы конференций/Andrew_Mitchell_Wood Mackenzie Краткий обзор Ni рынка.pdf",
+        "Источники информации/Материалы конференций/Stuart_Macnaughton_ValeGoro Новая Каледония - Общий обзор.pdf"
+      ]
+    },
+    {
+      "name": "Curated Reference Catalog",
+      "source_type": "reference_catalog",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "data/demo/sources/reference_catalog.json"
+      ]
+    },
+    {
+      "name": "Curated Experiment Protocol",
+      "source_type": "experiment_protocol",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "data/demo/sources/experiment_protocol.json"
+      ]
+    },
+    {
+      "name": "Curated Patent Regulation",
+      "source_type": "patent_regulation",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "data/demo/sources/sample_regulation.txt"
+      ]
+    },
+    {
+      "name": "Curated Expert Directory",
+      "source_type": "expert_directory",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "data/demo/sources/expert_directory.json"
+      ]
+    },
+    {
+      "name": "Curated Taxonomy",
+      "source_type": "taxonomy_catalog",
+      "source_mode": "manifest_import",
+      "access_level": "internal",
+      "documents": [
+        "data/demo/sources/taxonomy_catalog.json"
+      ]
+    }
+  ]
+}

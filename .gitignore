@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.deploy_tmp/
+node_modules/
+frontend/node_modules/
+dist/
+build/
+.DS_Store
+.env
+.deploy_server.env
+backend/.data/
+data/runtime/
+data/uploads/
+data/exports/
+data/registry/
+*.sqlite3
+*.db
+corpus_ascii/
+Источники информации/
+outputs/
+*.tgz

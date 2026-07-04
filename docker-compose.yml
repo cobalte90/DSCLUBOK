@@ -1,0 +1,107 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: science-knot-api
+    environment:
+      SCIENCE_KNOT_MODE: demo
+      SCIENCE_KNOT_DB_URL: sqlite:////app/data/runtime/science_knot.db
+      SCIENCE_KNOT_STORAGE_DIR: /app/data/runtime
+      SCIENCE_KNOT_CORPUS_DIR: /app/corpus
+      SCIENCE_KNOT_DEMO_MANIFEST: /app/data/demo/demo_manifest.json
+      SCIENCE_KNOT_CURATED_MANIFEST: /app/data/curated/real_curated_manifest.json
+      SCIENCE_KNOT_LLM_PROVIDER: ${SCIENCE_KNOT_LLM_PROVIDER:-stub}
+      YANDEX_AI_API_KEY: ${YANDEX_AI_API_KEY:-}
+      YANDEX_AI_FOLDER_ID: ${YANDEX_AI_FOLDER_ID:-}
+      YANDEX_AI_MODEL: ${YANDEX_AI_MODEL:-yandexgpt-lite/latest}
+      YANDEX_AI_MODEL_URI: ${YANDEX_AI_MODEL_URI:-}
+      EXTERNAL_SOURCES_ENABLED: ${EXTERNAL_SOURCES_ENABLED:-true}
+      EXTERNAL_SOURCES_CONTACT_EMAIL: ${EXTERNAL_SOURCES_CONTACT_EMAIL:-}
+      OPENALEX_ENABLED: ${OPENALEX_ENABLED:-true}
+      CROSSREF_ENABLED: ${CROSSREF_ENABLED:-true}
+      GOOGLE_PATENTS_ENABLED: ${GOOGLE_PATENTS_ENABLED:-true}
+      SCIENCE_KNOT_NEO4J_HTTP_URL: http://neo4j:7474
+      SCIENCE_KNOT_NEO4J_USER: neo4j
+      SCIENCE_KNOT_NEO4J_PASSWORD: science-knot-demo
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./data:/app/data
+      - ./corpus_ascii:/app/corpus:ro
+    depends_on:
+      - neo4j
+
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: science-knot-worker
+    command: ["python", "-m", "app.worker"]
+    environment:
+      SCIENCE_KNOT_MODE: demo
+      SCIENCE_KNOT_DB_URL: sqlite:////app/data/runtime/science_knot.db
+      SCIENCE_KNOT_STORAGE_DIR: /app/data/runtime
+      SCIENCE_KNOT_CORPUS_DIR: /app/corpus
+      SCIENCE_KNOT_DEMO_MANIFEST: /app/data/demo/demo_manifest.json
+      SCIENCE_KNOT_CURATED_MANIFEST: /app/data/curated/real_curated_manifest.json
+      SCIENCE_KNOT_LLM_PROVIDER: ${SCIENCE_KNOT_LLM_PROVIDER:-stub}
+      YANDEX_AI_API_KEY: ${YANDEX_AI_API_KEY:-}
+      YANDEX_AI_FOLDER_ID: ${YANDEX_AI_FOLDER_ID:-}
+      YANDEX_AI_MODEL: ${YANDEX_AI_MODEL:-yandexgpt-lite/latest}
+      YANDEX_AI_MODEL_URI: ${YANDEX_AI_MODEL_URI:-}
+      EXTERNAL_SOURCES_ENABLED: ${EXTERNAL_SOURCES_ENABLED:-true}
+      EXTERNAL_SOURCES_CONTACT_EMAIL: ${EXTERNAL_SOURCES_CONTACT_EMAIL:-}
+      OPENALEX_ENABLED: ${OPENALEX_ENABLED:-true}
+      CROSSREF_ENABLED: ${CROSSREF_ENABLED:-true}
+      GOOGLE_PATENTS_ENABLED: ${GOOGLE_PATENTS_ENABLED:-true}
+      SCIENCE_KNOT_NEO4J_HTTP_URL: http://neo4j:7474
+      SCIENCE_KNOT_NEO4J_USER: neo4j
+      SCIENCE_KNOT_NEO4J_PASSWORD: science-knot-demo
+    volumes:
+      - ./data:/app/data
+      - ./corpus_ascii:/app/corpus:ro
+    depends_on:
+      - api
+      - neo4j
+
+  frontend:
+    image: node:22-alpine
+    container_name: science-knot-frontend
+    working_dir: /app
+    command: ["sh", "-c", "npm install && npm run dev -- --host 0.0.0.0 --port 5173"]
+    environment:
+      VITE_API_BASE_URL: http://localhost:8001
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - api
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: science-knot-postgres
+    environment:
+      POSTGRES_DB: science_knot
+      POSTGRES_USER: science
+      POSTGRES_PASSWORD: science
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  neo4j:
+    image: neo4j:5.26-community
+    container_name: science-knot-neo4j
+    environment:
+      NEO4J_AUTH: neo4j/science-knot-demo
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4jdata:/data
+
+volumes:
+  pgdata:
+  neo4jdata:
