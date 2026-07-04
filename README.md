@@ -1,4 +1,5 @@
-# DSCLUBOK
+# DSCLUBOK   
+### http://5.35.125.110 - заходите на сайт продукта
 
 ![Маскот Научного клубка](frontend/public/cat-ds-club.png)
 
